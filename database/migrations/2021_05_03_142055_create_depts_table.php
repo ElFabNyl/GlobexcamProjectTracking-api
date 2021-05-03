@@ -14,7 +14,10 @@ class CreateDeptsTable extends Migration
     public function up()
     {
         Schema::create('depts', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('amount_to_pay');
+            $table->unsignedBigInteger('amount_payed');
             $table->timestamps();
         });
     }
