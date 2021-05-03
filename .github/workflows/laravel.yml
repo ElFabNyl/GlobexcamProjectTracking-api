@@ -56,7 +56,7 @@ jobs:
       - name: PHPStan
         uses: docker://jakzal/phpqa:php7.4-alpine
         with:
-          args: phpstan analyze -l 3 ./app/Http
+          args: phpstan analyze -l 3 ./app/Http ./app/Models
 
 #      - name: Create file
 #        run: touch .php_cs
