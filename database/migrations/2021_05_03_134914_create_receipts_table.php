@@ -14,7 +14,10 @@ class CreateReceiptsTable extends Migration
     public function up()
     {
         Schema::create('receipts', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('phase');
+            $table->unsignedBigInteger('amount_payed');
+            $table->enum('method_payment',['ORANGE MONEY','MTN MONEY','CASH']);
             $table->timestamps();
         });
     }

@@ -13,4 +13,14 @@ class Dept extends Model
     {
         return $this->belongsTo(Projet::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function receipt()
+    {
+        return $this->HasMany(Receipt::class);
+    }
 }

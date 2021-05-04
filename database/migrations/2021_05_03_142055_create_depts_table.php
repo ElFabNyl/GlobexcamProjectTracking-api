@@ -15,9 +15,11 @@ class CreateDeptsTable extends Migration
     {
         Schema::create('depts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('amount_to_pay');
+            $table->integer('amount_payed');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('amount_to_pay');
-            $table->unsignedBigInteger('amount_payed');
+
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

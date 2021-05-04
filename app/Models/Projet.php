@@ -16,4 +16,9 @@ class Projet extends Model
     {
         return $this->HasOne(Dept::class);
     }
+
+    public function comment()
+    {
+        return $this->HasMany(Comment::class);
+    }
 }
