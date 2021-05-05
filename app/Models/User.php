@@ -26,6 +26,8 @@ class User extends Authenticatable
         'phone'
     ];
 
+    protected $role;
+
     /**
      * The attributes that should be hidden for arrays.
      *
