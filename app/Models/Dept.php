@@ -11,7 +11,7 @@ class Dept extends Model
 
     public function projet()
     {
-        return $this->belongsTo(Projet::class);
+        return $this->HasOne(Projet::class);
     }
 
     public function user()

@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->HasMany(Comment::class);
     }
 
+    public function projets()
+    {
+        return $this->HasMany(Projet::class);
+    }
+
     public function isRole()
     {
         return $this->role;

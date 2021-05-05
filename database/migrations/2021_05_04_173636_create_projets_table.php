@@ -15,15 +15,16 @@ class CreateProjetsTable extends Migration
     {
         Schema::create('projets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('title');
+            $table->unsignedBigInteger('user_id');
             $table->string('assign_to');
             $table->date('starting_date');
             $table->date('ending_date');
-            $table->string('status');
+            $table->enum('status',['EN COUR','TERMINER', 'STOPPER']);
             $table->enum('category',['SITE WEB','GRAPHIC DESIGN','VIDEO']);
-            $table->unsignedBigInteger('dept_id'); // dept => dettes
 
-            $table->foreign('dept_id')->references('id')->on('depts');
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
 
         });

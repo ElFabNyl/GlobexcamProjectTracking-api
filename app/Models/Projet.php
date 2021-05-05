@@ -9,16 +9,21 @@ class Projet extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'assign_to', 'starting_date', 'ending_date '];
+    protected $fillable = ['title', 'assign_to', 'starting_date', 'ending_date', 'user_id'];
 
 
     public function depts()
     {
-        return $this->HasOne(Dept::class);
+        return $this->belongsTo(Dept::class);
     }
 
     public function comment()
     {
         return $this->HasMany(Comment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
