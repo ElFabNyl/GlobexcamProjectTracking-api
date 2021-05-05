@@ -121,7 +121,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $query
+     * @param mixed $query
      * @return mixed
      */
     public function scopeAdmin($query)
@@ -130,7 +130,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $query
+     * @param mixed $query
      * @return mixed
      */
     public function scopeAccountant($query)
@@ -139,7 +139,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $query
+     * @param mixed $query
      * @return mixed
      */
     public function scopeUser($query)
@@ -148,7 +148,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $query
+     * @param mixed $query
      * @return mixed
      */
     public function scopeCustomer($query)
@@ -157,7 +157,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $query
+     * @param mixed $query
      * @return mixed
      */
     public function scopeManager($query)
