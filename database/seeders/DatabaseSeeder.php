@@ -2,6 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
+use App\Models\Dept;
+use App\Models\Domain;
+use App\Models\Projet;
+use App\Models\Receipt;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +19,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // create factory to generate data fake data for user in database
+        User::factory(20)->create()->each(
+
+            function (User $user) {
+
+                // Seed table Domain with the user_id are created
+                Domain::factory(5)->create(['user_id' => $user->id]);
+
+                // Seed table Projet with user
+                Projet::factory(3)
+                    ->create(['assign_to' => $user->name,'user_id' => $user->id]);
+
+                Comment::factory(10)->create([
+                    'user_id' => $user->id,
+                    'projet_id' => $user->id
+                ]);
+
+            }
+        );
+
+        Receipt::factory(10)->create()->each(
+
+            function (Receipt $receipt) {
+
+                Dept::factory(5)->create([
+
+                    'user_id' => $receipt->id,
+                    'projet_id' => $receipt->id,
+                    'receipt_id' => $receipt->id
+                ]);
+            }
+        );
     }
 }

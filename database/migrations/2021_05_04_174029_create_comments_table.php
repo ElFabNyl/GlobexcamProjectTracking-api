@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDeptsTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateDeptsTable extends Migration
      */
     public function up()
     {
-        Schema::create('depts', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('comment');
+            $table->unsignedBigInteger('projet_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('amount_to_pay');
-            $table->unsignedBigInteger('amount_payed');
+
+            $table->foreign('projet_id')->references('id')->on('projets');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateDeptsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('depts');
+        Schema::dropIfExists('comments');
     }
 }

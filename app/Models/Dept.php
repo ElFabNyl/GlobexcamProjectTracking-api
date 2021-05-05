@@ -11,6 +11,16 @@ class Dept extends Model
 
     public function projet()
     {
-        return $this->belongsTo(Projet::class);
+        return $this->HasOne(Projet::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function receipt()
+    {
+        return $this->HasMany(Receipt::class);
     }
 }
