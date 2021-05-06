@@ -27,6 +27,8 @@ class User extends Authenticatable
         'phone'
     ];
 
+    protected $role;
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -49,28 +51,118 @@ class User extends Authenticatable
     /**
      * @return HasMany
      */
-    public function domain()
+    public function domains()
     {
         return $this->HasMany(Domain::class);
     }
 
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
-    public function getJWTIdentifier()
+    public function depts()
     {
-        return $this->getKey();
+        return $this->HasMany(Dept::class);
+    }
+
+    public function comments()
+    {
+        return $this->HasMany(Comment::class);
+    }
+
+    public function projets()
+    {
+        return $this->HasMany(Projet::class);
+    }
+
+    public function isRole()
+    {
+        return $this->role;
     }
 
     /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
+     * @return bool
+     * function verify if the user is admin
      */
-    public function getJWTCustomClaims()
+    public function isAdmin() : bool
     {
-        return [];
+        return $this->attributes['role'] === 'admin';
+    }
+
+    /**
+     * @return bool
+     * function verify if the user is accountant
+     */
+    public function isAccountant() : bool
+    {
+        return $this->attributes['role'] === 'accountant';
+    }
+
+    /**
+     * @return bool
+     * function verify if the user is user
+     */
+    public function isUser() : bool
+    {
+        return $this->attributes['role'] === 'user';
+    }
+
+    /**
+     * @return bool
+     * function verify if the user is client
+     */
+    public function isCustomer() : bool
+    {
+        return $this->attributes['customer'] === 'customer';
+    }
+
+    /**
+     * @return bool
+     * function verify if the user is user
+     */
+    public function isManager() : bool
+    {
+        return $this->attributes['manager'] === 'manager';
+    }
+
+    /**
+     * @param mixed $query
+     * @return mixed
+     */
+    public function scopeAdmin($query)
+    {
+        return $query->where('role','admin');
+    }
+
+    /**
+     * @param mixed $query
+     * @return mixed
+     */
+    public function scopeAccountant($query)
+    {
+        return $query->where('role','accountant');
+    }
+
+    /**
+     * @param mixed $query
+     * @return mixed
+     */
+    public function scopeUser($query)
+    {
+        return $query->where('role','user');
+    }
+
+    /**
+     * @param mixed $query
+     * @return mixed
+     */
+    public function scopeCustomer($query)
+    {
+        return $query->where('role','customer');
+    }
+
+    /**
+     * @param mixed $query
+     * @return mixed
+     */
+    public function scopeManager($query)
+    {
+        return $query->where('role','manager');
     }
 }

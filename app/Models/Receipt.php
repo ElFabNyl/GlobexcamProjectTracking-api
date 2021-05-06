@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Receipt extends Model
 {
     use HasFactory;
+
+    public $fillable = [
+        'phase',
+        'amount_payed',
+        'method_payment'
+    ];
+
+    public function dept()
+    {
+        return $this->belongsTo(Dept::class);
+    }
 }

@@ -16,6 +16,8 @@ Application de génération de reférencement naturel
           npm install
           npm run build
           php artisan serve
+          php artisan migrate:install
+          php artisan migrate:fresh --seed
 
 #### Lancer les Tests
 
