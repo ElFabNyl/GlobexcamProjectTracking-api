@@ -4,30 +4,67 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class LoginController extends Controller
 {
-    //all of this is t=just to test my jwt-auth
+
+   /**
+     * this function is to authenticate a User
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     
-   public function registration(Request $request){
+     public function userLogin(Request $request){
+        $validatedData = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => "required"
+        ]);
+        if ($validatedData->fails()) {
+            $errors = json_decode(json_encode($validatedData->errors()), true);
+            return response([
+                'message' => 'validation error',
+                'note'=> 'every field is required!'
+            ],);
+        }
+        $token = Auth::attempt($request->only('email', 'password'));
+        if (!$token) {
+            return response([
+                'message' => 'Invalid credentials !'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
 
-    return $user = User::create([
-       'name' => $request->input('name'),
-       'last_name' => $request->input('prenom'),
-       'email'=> $request->input('email@gmail.com'),
-       'password'=> Hash::make($request->input('password123')),
-       'role'=> $request->input('mon role'),
-       'phone' => $request->input(2235152659),
-    ]);
+        $data = [
+            'token' => $token,
+            'user' => auth()->user()
+        ];
 
-   }
+        return response(['message'=> 'user is successfully logged in !',  $data]);
 
-    public function auth(){
+     }
 
-        return 'user was successfully auth';
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        //pour l'instant j'affiche dabord ca. plutard ca sera une redirection vers la page de login
+        return response(['message'=> 'user is successfully logged in !']);
     }
-
 
 }

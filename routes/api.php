@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,6 @@ use App\Http\Controllers\Auth\LoginController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/log', [LoginController::class, 'auth']);
-Route::post('/reg', [LoginController::class, 'registration']);
+Route::post('/user-login', [LoginController::class, 'userLogin']);
+Route::post('/user-register', [RegisterController::class, 'registerNewUser']);
+
