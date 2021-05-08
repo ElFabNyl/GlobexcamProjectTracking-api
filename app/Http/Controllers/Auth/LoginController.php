@@ -30,7 +30,7 @@ class LoginController extends Controller
             $errors = json_decode(json_encode($validatedData->errors()), true);
             return response()->json([
                 'message' => 'validation error',
-                'note'=> 'every field is required!'
+                'error' => $errors
             ],);
         }
         $token = Auth::attempt($request->only('email', 'password'));
