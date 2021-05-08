@@ -32,6 +32,8 @@ class DatabaseSeeder extends Seeder
                     ->create(['assign_to' => $user->name,'user_id' => $user->id]);
 
                 Comment::factory(10)->create([
+                   // here are foreign keys
+
                     'user_id' => $user->id,
                     'projet_id' => $user->id
                 ]);
@@ -44,7 +46,7 @@ class DatabaseSeeder extends Seeder
             function (Receipt $receipt) {
 
                 Dept::factory(5)->create([
-
+                      // here are foreign keys
                     'user_id' => $receipt->id,
                     'projet_id' => $receipt->id,
                     'receipt_id' => $receipt->id
