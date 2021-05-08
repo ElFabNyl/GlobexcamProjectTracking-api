@@ -37,11 +37,11 @@ class RegisterController extends Controller
         }
        
         $user = new User; 
-        $user->name = $request['name'];
-        $user->last_name = $request['last_name'];
-        $user->phone = $request['phone'];  
-        $user->email = $request['email'];
-        $user->password = Hash::make($request['password']);
+        $user->name = $request->name;
+        $user->last_name = $request->last_name;
+        $user->phone = $request->phone;  
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
         $user->save();
         
         return  response()->json([
