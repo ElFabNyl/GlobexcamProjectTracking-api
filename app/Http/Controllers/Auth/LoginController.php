@@ -28,14 +28,14 @@ class LoginController extends Controller
         ]);
         if ($validatedData->fails()) {
             $errors = json_decode(json_encode($validatedData->errors()), true);
-            return response([
+            return response()->json([
                 'message' => 'validation error',
                 'note'=> 'every field is required!'
             ],);
         }
         $token = Auth::attempt($request->only('email', 'password'));
         if (!$token) {
-            return response([
+            return  response()->json([
                 'message' => 'Invalid credentials !'
             ], Response::HTTP_UNAUTHORIZED);
         }
@@ -45,7 +45,7 @@ class LoginController extends Controller
             'user' => auth()->user()
         ];
 
-        return response(['message'=> 'user is successfully logged in !',  $data]);
+        return  response()->json(['message'=> 'user is successfully logged in !',  $data]);
 
      }
 
@@ -64,7 +64,7 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         //pour l'instant j'affiche dabord ca. plutard ca sera une redirection vers la page de login
-        return response(['message'=> 'user is successfully logged in !']);
+        return  response()->json(['message'=> 'user is successfully logged out !']);
     }
 
 }

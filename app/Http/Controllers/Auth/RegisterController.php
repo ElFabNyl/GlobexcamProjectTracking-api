@@ -30,7 +30,7 @@ class RegisterController extends Controller
         ]);
         if ($validatedData->fails()) {
             $errors = json_decode(json_encode($validatedData->errors()), true);
-            return response([
+            return  response()->json([
                 'message' => 'validation error',
                 'error' => $errors
             ],);
@@ -44,7 +44,7 @@ class RegisterController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
         
-        return response([
+        return  response()->json([
             'message' => 'Client registered successfully !',
         ],);
 
