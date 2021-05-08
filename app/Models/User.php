@@ -21,6 +21,7 @@ class User extends Authenticatable implements JWTSubject
    public String $email;
    public String $password;
 
+   
     /**
      * The attributes that are mass assignable.
      *

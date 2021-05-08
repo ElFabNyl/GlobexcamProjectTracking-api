@@ -33,7 +33,7 @@ class RegisterController extends Controller
             return  response()->json([
                 'message' => 'validation error',
                 'error' => $errors
-            ],);
+            ],400);
         }
        
         $user = new User; 
@@ -46,7 +46,7 @@ class RegisterController extends Controller
         
         return  response()->json([
             'message' => 'Client registered successfully !',
-        ],);
+        ],Response::HTTP_OK);
 
     }
     

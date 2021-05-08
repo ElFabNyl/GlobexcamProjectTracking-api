@@ -31,7 +31,7 @@ class LoginController extends Controller
             return response()->json([
                 'message' => 'validation error',
                 'error' => $errors
-            ],);
+            ],400);
         }
         $token = Auth::attempt($request->only('email', 'password'));
         if (!$token) {
@@ -45,7 +45,7 @@ class LoginController extends Controller
             'user' => auth()->user()
         ];
 
-        return  response()->json(['message'=> 'user is successfully logged in !',  $data]);
+        return  response()->json(['message'=> 'user is successfully logged in !',  $data], Response::HTTP_OK);
 
      }
 
@@ -64,7 +64,7 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         //pour l'instant j'affiche dabord ca. plutard ca sera une redirection vers la page de login
-        return  response()->json(['message'=> 'user is successfully logged out !']);
+        return  response()->json(['message'=> 'user is successfully logged out !'],Response::HTTP_OK);
     }
 
 }
