@@ -18,6 +18,7 @@ class CreateDomainsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name_host');
             $table->string('name_customer');
+            $table->boolean('verify')->default(false);
             $table->enum('price',['15000','20000','25000','30000','40000','50000']);
             $table->enum('service',['REGISTER','RENEW','SMS']);
             $table->enum('method_payment',['ORANGE MONEY','MTN MONEY','CASH']);
