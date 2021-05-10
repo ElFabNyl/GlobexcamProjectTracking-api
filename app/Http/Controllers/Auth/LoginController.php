@@ -71,7 +71,10 @@ class LoginController extends Controller
      * this function displays a particular user given  its ID
      */
     public  function getUserById($id){
-        return User::where('id', $id)->first();
+        if (!is_null(User::where('id', $id)->first())){
+            return User::where('id', $id)->first();
+        }
+        return response()->json(['message'=> 'invalid user id ! ']);
     }
 
     /**
