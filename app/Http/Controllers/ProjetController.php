@@ -35,7 +35,7 @@ class ProjetController extends Controller
         return Response::json([
             'status' => true,
             'data' => Projet::query()->select('*')->paginate(10),
-        ]);
+        ],200);
     }
 
     /**
@@ -46,18 +46,40 @@ class ProjetController extends Controller
      */
     public function store(ProjetStoreRequest $request)
     {
-        //
+        $projet = new Projet();
+
+        $projet->title = $request['title'];
+        $projet->assing_to = auth()->user()->name;
+        $projet->ending_date = $request['ending_date'];
+        $projet->service = $request['service'];
+        $projet->method_payment = $request['category'];
+        $projet->user_id = auth()->user()->id;
+
+        $projet->save();
     }
 
     /**
      * Display the specified resource.
      *
      * @param Projet $projet
-     * @return void
+     * @return JsonResponse
      */
-    public function show(Projet $projet)
+    public function show($projet)
     {
-        //
+
+        if(is_null(Projet::find($projet)))
+        {
+            return Response::json([
+                'status' => false,
+                'message' => 'Projet '.$projet.' Not Found',
+                'data' => []
+            ],404);
+        }
+        return Response::json([
+            'status' => true,
+            'message' => 'Projet founds',
+            'data' => Projet::find($projet)
+            ],200);
     }
 
     /**
