@@ -31,3 +31,17 @@ Application de génération de reférencement naturel
 ```bash  
         php artisan jwt:secret
   ```
+
+##### STATUS CODE DESCRIPTION
+
+```bash  
+        200 : ok
+        201 : Created
+        202 : Accepted
+        202 : Non-Authoritative Information
+        400 : Bad Request
+        401 : Unauthorized
+        402 : Payment Required
+        403 : Forbidden
+        404 : Not Found
+  ```
