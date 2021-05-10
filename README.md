@@ -18,9 +18,16 @@ Application de génération de reférencement naturel
           php artisan serve
           php artisan migrate:install
           php artisan migrate:fresh --seed
+          
 
 #### Lancer les Tests
 
 ```bash  
         php artisan test
+  ```
+
+#### Initialise JWT
+
+```bash  
+        php artisan jwt:secret
   ```
