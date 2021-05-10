@@ -17,10 +17,13 @@ class CreateProjetsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->unsignedBigInteger('user_id');
+            $table->string('client_name');
+            $table->unsignedBigInteger('general_price');
+            $table->unsignedBigInteger('amount_payed');
             $table->string('assign_to');
-            $table->datetime('starting_date');
+            $table->datetime('starting_date')->default(now());
             $table->datetime('ending_date');
-            $table->enum('status',['EN COUR','TERMINER', 'STOPPER']);
+            $table->enum('status',['EN COUR','TERMINER', 'STOPPER'])->default('EN COUR');
             $table->enum('category',['SITE WEB','GRAPHIC DESIGN','VIDEO']);
 
             $table->foreign('user_id')->references('id')->on('users');

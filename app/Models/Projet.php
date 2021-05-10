@@ -9,7 +9,7 @@ class Projet extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'assign_to', 'starting_date', 'ending_date', 'user_id'];
+    protected $fillable = ['title', 'assign_to', 'starting_date', 'ending_date', 'user_id','client_name','general_price','amount_payed'];
 
 
     public function depts()
