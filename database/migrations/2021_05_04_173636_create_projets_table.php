@@ -18,8 +18,8 @@ class CreateProjetsTable extends Migration
             $table->string('title');
             $table->unsignedBigInteger('user_id');
             $table->string('assign_to');
-            $table->date('starting_date');
-            $table->date('ending_date');
+            $table->datetime('starting_date');
+            $table->datetime('ending_date');
             $table->enum('status',['EN COUR','TERMINER', 'STOPPER']);
             $table->enum('category',['SITE WEB','GRAPHIC DESIGN','VIDEO']);
 
