@@ -46,17 +46,17 @@ jobs:
         DB_DATABASE: database/database.sqlite
       run: php artisan test
 
-  static-code-analysis:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-        with:
-          php-version: "${{ matrix.php-version }}"
+#   static-code-analysis:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@master
+#         with:
+#           php-version: "${{ matrix.php-version }}"
 
-      - name: PHPStan
-        uses: docker://jakzal/phpqa:php7.4-alpine
-        with:
-          args: phpstan analyze -l 3 ./app/Http ./app/Models
+#       - name: PHPStan
+#         uses: docker://jakzal/phpqa:php7.4-alpine
+#         with:
+#           args: phpstan analyze -l 3 ./app/Http ./app/Models
 
 #      - name: Create file
 #        run: touch .php_cs
