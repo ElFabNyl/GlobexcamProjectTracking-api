@@ -23,7 +23,7 @@ class ProjetFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->text(10),
+            'title' => $this->faker->text(20),
             'starting_date' => now(),
             'ending_date' => now(),
             'status' => Arr::random(['EN COUR','TERMINER', 'STOPPER']),
