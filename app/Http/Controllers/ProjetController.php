@@ -50,10 +50,11 @@ class ProjetController extends Controller
 
         $projet->title = $request['title'];
         $projet->assing_to = auth()->user()->name;
+        $projet->client_name = $request['client_name'];
+        $projet->general_price = $request['general_price'];
+        $projet->amount_payed = $request['amount_payed'];
         $projet->ending_date = $request['ending_date'];
-        $projet->service = $request['service'];
         $projet->method_payment = $request['category'];
-        $projet->user_id = auth()->user()->id;
 
         $projet->save();
     }
