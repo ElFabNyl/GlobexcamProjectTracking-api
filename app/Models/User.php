@@ -15,11 +15,11 @@ class User extends Authenticatable implements JWTSubject
   
     use HasFactory, Notifiable, HasApiTokens;
   
-//    public  String $name;
-//    public String $last_name;
-//    public String $phone;
-//    public String $email;
-//    public String $password;
+   public  String $name;
+   public String $last_name;
+   public String $phone;
+   public String $email;
+   public String $password;
 
  
     /**
