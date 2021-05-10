@@ -20,7 +20,6 @@ class RegisterController extends Controller
     public function registerNewUser(Request $request){
        
         
-        
         $validatedData = Validator::make($request->all(), [
             'name' => 'required',
             'last_name' => "required",
