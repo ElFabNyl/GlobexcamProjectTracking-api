@@ -25,7 +25,7 @@ class RoleMiddleware
         {
             return Response::json([
                 'status' => false,
-                'message' => 'Vous devez vous authentifier pour acceder a cette page'
+                'message' => 'Vous devez vous authentifier pour accéder a cette page'
             ],403);
         }
 
@@ -35,7 +35,7 @@ class RoleMiddleware
         {
             return Response::json([
                 'status' => false,
-                'message' => 'Vous n\' avez pas les droits d\'acces a cette page'
+                'message' => 'Vous n\' avez pas les droits d\'accès requis pour cette page'
             ],403);
         }
 
