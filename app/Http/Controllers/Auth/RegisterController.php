@@ -30,7 +30,6 @@ class RegisterController extends Controller
         if ($validatedData->fails()) {
             $errors = json_decode(json_encode($validatedData->errors()), true);
             return  response()->json([
-                'message' => 'validation error',
                 'error' => $errors
             ],400);
         }
