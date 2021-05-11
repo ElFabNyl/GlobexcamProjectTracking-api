@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Projet\ProjetStoreRequest;
 use App\Http\Requests\Projet\ProjetUpdateRequest;
-use App\Http\Requests\ProjetRequest;
 use App\Models\Projet;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 /**
@@ -22,11 +20,11 @@ class ProjetController extends Controller
      */
     public function __construct()
     {
-        return $this->middleware('auth');
+        return $this->middleware(['role:admin,manager']);
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the projet.
      *
      * @return JsonResponse
      */
@@ -35,11 +33,11 @@ class ProjetController extends Controller
         return Response::json([
             'status' => true,
             'data' => Projet::query()->select('*')->paginate(10),
-        ],200);
+        ], 200);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created projet in storage.
      *
      * @param ProjetStoreRequest $request
      * @return void
@@ -55,32 +53,37 @@ class ProjetController extends Controller
         $projet->amount_payed = $request['amount_payed'];
         $projet->ending_date = $request['ending_date'];
         $projet->method_payment = $request['category'];
+        $projet->user_id = auth()->user()->getAuthIdentifier();
 
         $projet->save();
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified projet.
      *
-     * @param Projet $projet
+     * @param $slug
      * @return JsonResponse
      */
-    public function show($projet)
+    public function show($slug)
     {
 
-        if(is_null(Projet::find($projet)))
-        {
+        $projet = Projet::where('slug',$slug);
+
+        // le projet demandé n'a pas été trouver ou n'existe pas
+        if (is_null($projet)) {
             return Response::json([
                 'status' => false,
-                'message' => 'Projet '.$projet.' Not Found',
+                'message' => 'Projet ' . $slug . ' Not Found',
                 'data' => []
-            ],404);
+            ], 404);
         }
+
+        // Le projet demandé existe
         return Response::json([
             'status' => true,
             'message' => 'Projet founds',
-            'data' => Projet::find($projet)
-            ],200);
+            'data' => $projet
+        ], 200);
     }
 
     /**
