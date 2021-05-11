@@ -16,6 +16,7 @@ class CreateProjetsTable extends Migration
         Schema::create('projets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('user_id');
             $table->string('client_name');
             $table->unsignedBigInteger('general_price');

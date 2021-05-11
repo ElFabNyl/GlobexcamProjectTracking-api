@@ -61,22 +61,24 @@ class ProjetController extends Controller
     /**
      * Display the specified projet.
      *
-     * @param $slug
+     * @param Projet $projet
      * @return JsonResponse
      */
     public function show($slug)
     {
 
-        $projet = Projet::where('slug',$slug);
-
+        $projet = Projet::query()
+            ->select('*')
+        ->where('slug',$slug)->firstOr();
         // le projet demandé n'a pas été trouver ou n'existe pas
-        if (is_null($projet)) {
-            return Response::json([
-                'status' => false,
-                'message' => 'Projet ' . $slug . ' Not Found',
-                'data' => []
-            ], 404);
-        }
+
+//        if () {
+//            return Response::json([
+//                'status' => false,
+//                'message' => 'Projet ' . $slug . ' Not Found',
+//                'data' => []
+//            ], 404);
+//        }
 
         // Le projet demandé existe
         return Response::json([

@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Projet;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class ProjetFactory extends Factory
 {
@@ -22,8 +23,10 @@ class ProjetFactory extends Factory
      */
     public function definition()
     {
+        $title = $this->faker->text(20);
         return [
-            'title' => $this->faker->text(20),
+            'title' => $title,
+            'slug' => Str::slug($title, '-'),
             'client_name' => $this->faker->name,
             'general_price' => $this->faker->numberBetween(150000,500000),
             'amount_payed' => $this->faker->numberBetween(150000,500000),
