@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProjetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -22,5 +23,14 @@ Route::post('/register', [RegisterController::class, 'registerNewUser']);
 Route::get('/get-user/{id}', [LoginController::class, 'getUserById']);
 Route::put('/update', [LoginController::class, 'updateUserById']);
 
+});
+
+Route::group(['/projet'], function(){
+
+    /**
+     * Route Projet
+     */
+
+    Route::apiResource('projet',ProjetController::class);
 });
 
