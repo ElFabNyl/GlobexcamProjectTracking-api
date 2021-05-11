@@ -16,11 +16,15 @@ class CreateProjetsTable extends Migration
         Schema::create('projets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('user_id');
+            $table->string('client_name');
+            $table->unsignedBigInteger('general_price');
+            $table->unsignedBigInteger('amount_payed');
             $table->string('assign_to');
-            $table->date('starting_date');
-            $table->date('ending_date');
-            $table->enum('status',['EN COUR','TERMINER', 'STOPPER']);
+            $table->datetime('starting_date')->default(now());
+            $table->datetime('ending_date');
+            $table->enum('status',['EN COUR','TERMINER', 'STOPPER'])->default('EN COUR');
             $table->enum('category',['SITE WEB','GRAPHIC DESIGN','VIDEO']);
 
             $table->foreign('user_id')->references('id')->on('users');
