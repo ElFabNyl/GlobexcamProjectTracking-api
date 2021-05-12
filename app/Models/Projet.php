@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Projet extends Model
 {
@@ -35,5 +36,13 @@ class Projet extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public static function findBySlug($slug)
+    {
+      return  DB::table('projets')
+          ->select('*')
+          ->where('slug','=',$slug)
+          ->first();
     }
 }
