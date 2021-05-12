@@ -67,18 +67,16 @@ class ProjetController extends Controller
     public function show($slug)
     {
 
-        $projet = Projet::query()
-            ->select('*')
-        ->where('slug',$slug)->firstOr();
+        $projet = Projet::findBySlug($slug);
         // le projet demandé n'a pas été trouver ou n'existe pas
 
-//        if () {
-//            return Response::json([
-//                'status' => false,
-//                'message' => 'Projet ' . $slug . ' Not Found',
-//                'data' => []
-//            ], 404);
-//        }
+        if (is_null($projet)) {
+            return Response::json([
+                'status' => false,
+                'message' => 'Projet ' . $slug . ' Not Found',
+                'data' => []
+            ], 404);
+        }
 
         // Le projet demandé existe
         return Response::json([
