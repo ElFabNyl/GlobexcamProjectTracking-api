@@ -18,7 +18,8 @@ class CreateProjetsTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->unsignedBigInteger('user_id');
-            $table->string('client_name');
+            $table->longText('description');
+            $table->string('client_email');
             $table->unsignedBigInteger('general_price');
             $table->unsignedBigInteger('amount_payed');
             $table->string('assign_to');

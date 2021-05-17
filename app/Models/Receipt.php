@@ -10,6 +10,7 @@ class Receipt extends Model
     use HasFactory;
 
     public $fillable = [
+        'dept_id',
         'phase',
         'amount_payed',
         'method_payment'
@@ -17,6 +18,6 @@ class Receipt extends Model
 
     public function dept()
     {
-        return $this->belongsTo(Dept::class);
+        return $this->HasOne(Dept::class);
     }
 }

@@ -24,7 +24,7 @@ class UserTest extends TestCase
     public function LoginWithAdmin()
     {
         $user = User::factory()->create(['role' => "admin"]);
-        $token = Auth::attempt([$user->user,bcrypt('password')])
+        $token = Auth::attempt([$user->user,bcrypt('password')]);
         $credentials = [
             'email' => $user->email,
             'password' => bcrypt('password'),

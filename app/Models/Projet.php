@@ -13,13 +13,14 @@ class Projet extends Model
     protected $fillable = [
         'title',
         'assign_to',
-        'starting_date',
         'ending_date',
         'user_id',
-        'client_name',
+        'client_email',
         'general_price',
         'amount_payed',
-        'slug'
+        'slug',
+        'status',
+        'category'
     ];
 
 
