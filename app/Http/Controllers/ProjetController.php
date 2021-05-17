@@ -60,16 +60,24 @@ class ProjetController extends Controller
 
     /**
      * Display the specified projet.
-     *
-     * @param Projet $projet
+     * Search By Slug
+     * @param $slug
      * @return JsonResponse
      */
     public function show($slug)
     {
+        // Ici on vérifie si c'est un entier
+        if (is_numeric($slug)) {
+            return Response::json([
+                'status' => false,
+                'message' => 'Please enter a name of projet',
+                'data' => []
+            ], 404);
+        }
 
         $projet = Projet::findBySlug($slug);
-        // le projet demandé n'a pas été trouver ou n'existe pas
 
+        // le projet demandé n'a pas été trouver ou n'existe pas
         if (is_null($projet)) {
             return Response::json([
                 'status' => false,
