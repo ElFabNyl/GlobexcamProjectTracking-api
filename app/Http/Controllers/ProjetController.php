@@ -9,9 +9,9 @@ use App\Models\Projet;
 use App\Models\Receipt;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
+use Exception;
 
 /**
  * Class ProjetController
@@ -51,54 +51,63 @@ class ProjetController extends Controller
     {
         $user = User::findByEmail($request['client_email']);
 
-        if($user)
-        {
-            // CREATE A PROJET
-            $projet = new Projet();
+        if ($user) {
+            try {
+                // CREATE A PROJET
+                $projet = new Projet();
 
-            $projet->title = $request['title'];
-            $projet->slug = Str::slug($request['title'], '-');
-            $projet->user_id = auth()->user()->getAuthIdentifier();
-            $projet->client_email = $request['client_email'];
-            $projet->general_price = $request['general_price'];
-            $projet->amount_payed = $request['amount_payed'];
-            $projet->assign_to = auth()->user()->name;
-            $projet->ending_date = $request['ending_date'];
-            $projet->category = $request['category'];
+                $projet->title = $request['title'];
+                $projet->slug = Str::slug($request['title'], '-');
+                $projet->user_id = auth()->user()->getAuthIdentifier();
+                $projet->client_email = $request['client_email'];
+                $projet->general_price = $request['general_price'];
+                $projet->description = $request['description'];
+                $projet->amount_payed = $request['amount_payed'];
+                $projet->assign_to = auth()->user()->name;
+                $projet->ending_date = $request['ending_date'];
+                $projet->category = $request['category'];
 
-            $projet->save();
+                $projet->save();
 
 
-            // CREATE A DEPT
-            $dept = new Dept();
+                // CREATE A DEPT
+                $dept = new Dept();
 
-            $dept->amount_to_pay = $request['general_price'];
-            $dept->amount_payed = $request['amount_payed'];
-            $dept->user_id = $user->id;
-            $dept->projet_id = $projet->id;
+                $dept->amount_to_pay = $request['general_price'] - $request['amount_payed'];
+                $dept->amount_payed = $request['amount_payed'];
+                $dept->user_id = $user->id;
+                $dept->projet_id = $projet->id;
 
-            $dept->save();
+                $dept->save();
 
-            // CREATE A RECEIPT
-            $receipt = new Receipt();
+                // CREATE A RECEIPT
+                $receipt = new Receipt();
 
-            $receipt->phase = 'PHASE 1';
-            $receipt->amount_payed = $request['amount_payed'];
-            $receipt->method_payement = $request['method_payment'];
-            $receipt->dept_id = $dept->id;
+                $receipt->phase = 'PHASE 1';
+                $receipt->amount_payed = $request['amount_payed'];
+                $receipt->method_payment = $request['method_payment'];
+                $receipt->dept_id = $dept->id;
 
-            $receipt->save();
+                $receipt->save();
 
-            return Response::json([
-                'status' => true,
-                'message' => 'New projet added',
-                'data' => $projet
-            ], 201);
+                return Response::json([
+                    'status' => true,
+                    'message' => 'New projet added',
+                    'data' => $projet
+                ], 201);
+            } catch (Exception $exception) {
+
+                return Response::json([
+                    'status' => false,
+                    'message' => $exception->getMessage(),
+                    'data' => []
+                ], 404);
+            }
         }
 
         return Response::json([
             'status' => false,
-            'message' => 'The User '.$request['client_email'].' is not Registerd',
+            'message' => 'The User ' . $request['client_email'] . ' is not Registerd',
             'data' => []
         ], 404);
     }
