@@ -51,7 +51,7 @@ class ReceiptController extends Controller
                 [
                 'Amount_paid' => $deptInfos->amount_payed ,
                 'Amount_left' => $deptInfos->amount_to_pay,
-                'receipt_id' => $deptInfos->receipt_id,
+                'receipt_id' => $receiptInfos->id,
                 'payment_method' => $receiptInfos->method_payment
                 ]
             );
