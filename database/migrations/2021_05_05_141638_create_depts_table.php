@@ -18,7 +18,7 @@ class CreateDeptsTable extends Migration
             $table->integer('amount_to_pay');
             $table->integer('amount_payed');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('projet_id');
+            $table->unsignedBigInteger('projet_id')->unique();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('projet_id')->references('id')->on('projets');
