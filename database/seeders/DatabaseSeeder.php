@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
                     'projet_id' => Projet::factory()->create(['assign_to' => $user->name,'user_id' => $user->id, 'client_email' => $user->email ])->id
                 ]);
 
-                Dept::factory(10)->create(['user_id'=> $user->id, 'projet_id' => Projet::factory()->create(['assign_to' => $user->name,'user_id' => $user->id, 'client_email' => $user->email ])->id ])->each(
+                Dept::factory(1)->create(['user_id'=> $user->id, 'projet_id' => Projet::factory()->create(['assign_to' => $user->name,'user_id' => $user->id, 'client_email' => $user->email ])->id ])->each(
 
                     function (Dept $dept) {
 
