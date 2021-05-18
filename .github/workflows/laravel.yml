@@ -40,9 +40,8 @@ jobs:
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
 
-    - uses: actions/checkout@v2
-      - name: Copy .env
-        run: php -r "file_exists('.env.testing') || copy('.env.example', '.env.testing');"
+    - name: Copy .env
+      run: php -r "file_exists('.env.testing') || copy('.env.example', '.env.testing');"
 
     - name: Execution des Tests
       run: php artisan test

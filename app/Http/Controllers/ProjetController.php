@@ -157,7 +157,7 @@ class ProjetController extends Controller
      */
     public function update(ProjetUpdateRequest $request, Projet $projet)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -168,6 +168,6 @@ class ProjetController extends Controller
      */
     public function destroy(Projet $projet)
     {
-        //
+        abort(500);
     }
 }
