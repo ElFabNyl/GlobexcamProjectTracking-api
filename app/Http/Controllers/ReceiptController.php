@@ -38,21 +38,21 @@ class ReceiptController extends Controller
                 
                 [
                 'name' => $userInfos->name, 
-                'last name' => $userInfos->last_name,
+                'last_name' => $userInfos->last_name,
                 'email' => $userInfos->email,
                 'phone' => $userInfos->phone,
                 ],
                 [
-                'project title' => $projetfound->title,
-                'project description' => $projetfound->description,
-                'total amount' => $projetfound->general_price,
+                'project_title' => $projetfound->title,
+                'project_description' => $projetfound->description,
+                'total_amount' => $projetfound->general_price,
                 'date' =>$deptInfos->created_at->format('m/d/Y')
                 ],
                 [
-                'Amount paid' => $deptInfos->amount_payed ,
-                'Amount left' => $deptInfos->amount_to_pay,
+                'Amount_paid' => $deptInfos->amount_payed ,
+                'Amount_left' => $deptInfos->amount_to_pay,
                 'receipt_id' => $deptInfos->receipt_id,
-                'payment method' => $receiptInfos->method_payment
+                'payment_method' => $receiptInfos->method_payment
                 ]
             );
 
