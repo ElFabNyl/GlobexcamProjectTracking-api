@@ -32,7 +32,7 @@ class ReceiptController extends Controller
             $userInfos = User::where('id', $userID)->first(); 
             $projetfound = Projet::where('user_id', $userID)->first();
             $deptInfos = Dept::where('user_id', $userID)->first(); 
-            $receiptInfos = Receipt::where('id', $deptInfos->receipt_id)->first();
+            $receiptInfos = Receipt::where('dept_id', $deptInfos->id)->first();
             
             $details = array(
                 
