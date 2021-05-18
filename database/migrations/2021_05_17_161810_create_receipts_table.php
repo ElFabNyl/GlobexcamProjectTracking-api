@@ -18,6 +18,9 @@ class CreateReceiptsTable extends Migration
             $table->string('phase');
             $table->unsignedBigInteger('amount_payed');
             $table->enum('method_payment',['ORANGE MONEY','MTN MONEY','CASH']);
+            $table->unsignedBigInteger('dept_id');
+
+            $table->foreign('dept_id')->references('id')->on('depts');
             $table->timestamps();
         });
     }
