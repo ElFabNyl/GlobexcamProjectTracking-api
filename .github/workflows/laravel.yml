@@ -45,9 +45,8 @@ jobs:
 
     - name: Execution des Tests
       env:
-        DB_CONNECTION: mysql
-        DB_DATABASE: test-api-data
-        DB_USERNAME: root
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
       run: php artisan test
 
 #   static-code-analysis:
