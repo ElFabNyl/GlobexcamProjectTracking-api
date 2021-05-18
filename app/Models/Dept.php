@@ -9,6 +9,13 @@ class Dept extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'amount_to_pay',
+        'amount_payed',
+        'user_id',
+        'projet_id',
+    ];
+
     public function projet()
     {
         return $this->HasOne(Projet::class);
@@ -21,6 +28,6 @@ class Dept extends Model
 
     public function receipt()
     {
-        return $this->HasMany(Receipt::class);
+        return $this->belongsTo(Receipt::class);
     }
 }

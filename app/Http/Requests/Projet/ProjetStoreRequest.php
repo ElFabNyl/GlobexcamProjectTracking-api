@@ -24,13 +24,12 @@ class ProjetStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['string','required'],
-            'user_id' => ['required','required'],
-            'assign_to' => ['string','required'],
-            'starting_date' => ['datetime','required'],
-            'ending_date' => ['datetime','required'],
-            'status' => ['in:EN COUR,TERMINER, STOPPER'],
-            'category' => ['in:SITE WEB,GRAPHIC DESIGN,VIDEO'],
+            'title' => ['bail','string','required'],
+            'client_email' => ['bail','required','email'],
+            'general_price' => ['bail','int','required'],
+            'amount_payed' => ['bail','int','required'],
+            'ending_date' => ['bail','required'],
+            'category' => ['bail','in:SITE WEB,GRAPHIC DESIGN,VIDEO'],
         ];
     }
 }

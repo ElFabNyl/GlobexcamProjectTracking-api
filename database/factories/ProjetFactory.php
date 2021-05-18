@@ -27,11 +27,10 @@ class ProjetFactory extends Factory
         return [
             'title' => $title,
             'slug' => Str::slug($title, '-'),
-            'client_name' => $this->faker->name,
             'general_price' => $this->faker->numberBetween(150000,500000),
             'amount_payed' => $this->faker->numberBetween(150000,500000),
-            'starting_date' => now(),
             'ending_date' => now(),
+            'description' => $this->faker->text(50),
             'status' => Arr::random(['EN COUR','TERMINER', 'STOPPER']),
             'category' => Arr::random(['SITE WEB','GRAPHIC DESIGN','VIDEO']),
         ];

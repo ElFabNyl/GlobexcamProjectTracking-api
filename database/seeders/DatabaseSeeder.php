@@ -28,30 +28,28 @@ class DatabaseSeeder extends Seeder
                 Domain::factory(5)->create(['user_id' => $user->id]);
 
                 // Seed table Projet with user
-                Projet::factory(3)
-                    ->create(['assign_to' => $user->name,'user_id' => $user->id]);
+                Projet::factory(3)->create(['assign_to' => $user->name,'user_id' => $user->id, 'client_email' => $user->email ]);
 
                 Comment::factory(10)->create([
-                   // here are foreign keys
+                    // here are foreign keys
 
                     'user_id' => $user->id,
-                    'projet_id' => $user->id
+                    'projet_id' => Projet::factory()->create(['assign_to' => $user->name,'user_id' => $user->id, 'client_email' => $user->email ])->id
                 ]);
+
+                Dept::factory(1)->create(['user_id'=> $user->id, 'projet_id' => Projet::factory()->create(['assign_to' => $user->name,'user_id' => $user->id, 'client_email' => $user->email ])->id ])->each(
+
+                    function (Dept $dept) {
+
+                        Receipt::factory(5)->create([
+                            // here are foreign keys
+                            'dept_id' => $dept->id,
+                        ]);
+                    }
+                );
 
             }
         );
 
-        Receipt::factory(10)->create()->each(
-
-            function (Receipt $receipt) {
-
-                Dept::factory(5)->create([
-                      // here are foreign keys
-                    'user_id' => $receipt->id,
-                    'projet_id' => $receipt->id,
-                    'receipt_id' => $receipt->id
-                ]);
-            }
-        );
     }
 }

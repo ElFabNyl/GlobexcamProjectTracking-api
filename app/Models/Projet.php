@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Projet extends Model
 {
@@ -12,13 +13,14 @@ class Projet extends Model
     protected $fillable = [
         'title',
         'assign_to',
-        'starting_date',
         'ending_date',
         'user_id',
-        'client_name',
+        'client_email',
         'general_price',
         'amount_payed',
-        'slug'
+        'slug',
+        'status',
+        'category'
     ];
 
 
@@ -35,5 +37,13 @@ class Projet extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public static function findBySlug($slug)
+    {
+      return  DB::table('projets')
+          ->select('*')
+          ->where('slug','=',$slug)
+          ->first();
     }
 }
