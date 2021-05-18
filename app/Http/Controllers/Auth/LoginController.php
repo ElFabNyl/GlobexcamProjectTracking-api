@@ -32,7 +32,7 @@ class LoginController extends Controller
             return response()->json([
                 'message' => 'validation error',
                 'error' => $errors
-            ],400);
+            ],422);
         }
         $token = Auth::attempt($request->only('email', 'password'));
         if (!$token) {
