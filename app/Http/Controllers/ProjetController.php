@@ -152,12 +152,49 @@ class ProjetController extends Controller
      * Update the specified resource in storage.
      *
      * @param ProjetUpdateRequest $request
-     * @param Projet $projet
-     * @return void
+     * @param  $slug
+     * @return JsonResponse
      */
-    public function update(ProjetUpdateRequest $request, Projet $projet)
+    public function update(ProjetUpdateRequest $request, $slug)
     {
-        abort(404);
+        // Ici on vérifie si c'est un entier
+        if (is_numeric($slug)) {
+            return Response::json([
+                'status' => false,
+                'message' => 'Please enter a name of projet',
+                'data' => []
+            ], 404);
+        }
+
+        $find = Projet::findBySlug($slug);
+
+        // le projet demandé n'a pas été trouver ou n'existe pas
+        if (is_null($find)) {
+            return Response::json([
+                'status' => false,
+                'message' => 'Projet ' . $slug . ' Not Found',
+                'data' => []
+            ], 404);
+        }
+
+
+        $projet->title = is_null($request['title']) ? $projet->title : $request['title'];
+        $projet->slug = is_null($request['title']) ? $projet->slug : Str::slug($request['title']);
+        $projet->client_email = is_null($request['client_email']) ? $projet->client_email : $request['client_email'];
+        $projet->general_price = is_null($request['general_price']) ? $projet->general_price : $request['general_price'];
+        $projet->description = is_null($request['description']) ? $projet->description : $request['description'];
+        $projet->amount_payed = is_null($request['amount_payed']) ? $projet->amount_payed : $request['amount_payed'];
+        $projet->assign_to = auth()->user()->name;
+        $projet->ending_date = is_null($request['ending_date']) ? $projet->ending_date : $request['ending_date'];
+        $projet->category = is_null($request['category']) ? $projet->category : $request['category'];
+
+        $projet->update();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Projet Updated',
+            'data' => $projet
+        ]);
     }
 
     /**
