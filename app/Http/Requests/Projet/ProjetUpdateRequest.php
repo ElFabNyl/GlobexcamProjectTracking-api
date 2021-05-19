@@ -24,13 +24,13 @@ class ProjetUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['string'],
-            'user_id' => [''],
-            'assign_to' => ['string'],
-            'starting_date' => ['datetime'],
-            'ending_date' => ['datetime'],
-            'status' => ['in:EN COUR,TERMINER, STOPPER'],
-            'category' => ['in:SITE WEB,GRAPHIC DESIGN,VIDEO'],
+            'title' => ['bail','string'],
+            'client_email' => ['bail','required','email'],
+            'general_price' => ['bail','int'],
+            'description' => ['bail','string','max:200'],
+            'amount_payed' => ['bail','int'],
+            'ending_date' => ['bail','date'],
+            'category' => ['bail','in:SITE WEB,GRAPHIC DESIGN,VIDEO'],
         ];
     }
 }
