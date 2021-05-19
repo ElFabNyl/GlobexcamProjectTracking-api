@@ -58,35 +58,35 @@ class LoginTest extends TestCase
             ]);
     }
 
-    /** @test */
-    public function user_login_successfully()
-    {
-        $user = User::factory()->create([
-            'email' => 'stevymarlino@user.com',
-            'password' => bcrypt('password'),
-        ]);
-
-        $payload = ['email' => 'stevymarlino@user.com', 'password' => 'password'];
-
-        $this->json('POST', 'api/user/login', $payload)
-            ->assertStatus(200)
-            ->assertJsonStructure([
-                'message',
-                'data' => [
-                    'token',
-                    'user' => [
-                        'id',
-                        'name',
-                        'last_name',
-                        'phone',
-                        'role',
-                        'email',
-                        'email_verified_at',
-                        'created_at',
-                        'updated_at',
-                    ]
-                ],
-            ]);
-    }
+//    /** @test */
+//    public function user_login_successfully()
+//    {
+//        $user = User::factory()->create([
+//            'email' => 'stevymarlino@user.com',
+//            'password' => bcrypt('password'),
+//        ]);
+//
+//        $payload = ['email' => 'stevymarlino@user.com', 'password' => 'password'];
+//
+//        $this->json('POST', 'api/user/login', $payload)
+//            ->assertStatus(200)
+//            ->assertJsonStructure([
+//                'message',
+//                'data' => [
+//                    'token',
+//                    'user' => [
+//                        'id',
+//                        'name',
+//                        'last_name',
+//                        'phone',
+//                        'role',
+//                        'email',
+//                        'email_verified_at',
+//                        'created_at',
+//                        'updated_at',
+//                    ]
+//                ],
+//            ]);
+//    }
 
 }
