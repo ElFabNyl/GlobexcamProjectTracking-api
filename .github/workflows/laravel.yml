@@ -12,17 +12,6 @@ jobs:
   laravel-tests:
 
     runs-on: ${{ matrix.operating-system }}
-
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: no
-          MYSQL_DATABASE: test-api-data
-          ports:
-            - 33306:3306
-          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     strategy:
       matrix:
         php-version:
@@ -52,14 +41,6 @@ jobs:
 
     - name: Copy .env
       run: php -r "file_exists('.env.testing') || copy('.env.example', '.env.testing');"
-
-    - name: Execution des Tests
-      run: php artisan test
-      env:
-        DB_PORT: ${{ job.services.mysql.ports[3306] }}
-        DB_USERNAME: root
-        DYNAMODB_CACHE_TABLE: laravel_dynamodb_test
-        DYNAMODB_ENDPOINT: "http://localhost:8000"
 
 
 #   static-code-analysis:
