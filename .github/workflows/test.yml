@@ -1,4 +1,4 @@
-name: CI/CD Test
+name: Test
 
 on:
   push:
@@ -35,6 +35,7 @@ jobs:
           composer update -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
           composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
           php artisan key:generate
+          php artisan jwt:secret
           chmod -R 777 storage bootstrap/cache
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
