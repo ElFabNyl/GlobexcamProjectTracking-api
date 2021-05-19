@@ -32,8 +32,8 @@ jobs:
       - name: Laravel Setup
         run: |
           cp .env.ci .env
+          composer update -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
           composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-          composer update
           php artisan key:generate
           chmod -R 777 storage bootstrap/cache
       - name: Execute tests (Unit and Feature tests) via PHPUnit
