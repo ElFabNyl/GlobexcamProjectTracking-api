@@ -1,4 +1,10 @@
 name: CI/CD Test
+
+on:
+  push:
+    branches:
+    pull_request:
+
 jobs:
   phpunit:
     runs-on: ubuntu-latest
