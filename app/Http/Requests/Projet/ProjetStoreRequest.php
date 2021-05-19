@@ -26,6 +26,7 @@ class ProjetStoreRequest extends FormRequest
         return [
             'title' => ['bail','string','required'],
             'client_email' => ['bail','required','email'],
+            'description' => ['bail','required','string','max:200'],
             'general_price' => ['bail','int','required'],
             'amount_payed' => ['bail','int','required'],
             'ending_date' => ['bail','required'],
