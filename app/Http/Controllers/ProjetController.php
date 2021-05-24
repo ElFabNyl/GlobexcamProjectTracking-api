@@ -152,31 +152,21 @@ class ProjetController extends Controller
      * Update the specified resource in storage.
      *
      * @param ProjetUpdateRequest $request
-     * @param  $slug
+     * @param Projet $projet
      * @return JsonResponse
      */
-    public function update(ProjetUpdateRequest $request, $slug)
+    public function update(ProjetUpdateRequest $request, Projet $projet)
     {
-        // Ici on vérifie si c'est un entier
-        if (is_numeric($slug)) {
-            return Response::json([
+
+        if(!$projet)
+        {
+            return response()->json([
                 'status' => false,
-                'message' => 'Please enter a name of projet',
+                'message' => 'Projet Not Found',
                 'data' => []
-            ], 404);
+            ]);
+
         }
-
-        $find = Projet::findBySlug($slug);
-
-        // le projet demandé n'a pas été trouver ou n'existe pas
-        if (is_null($find)) {
-            return Response::json([
-                'status' => false,
-                'message' => 'Projet ' . $slug . ' Not Found',
-                'data' => []
-            ], 404);
-        }
-
 
         $projet->title = is_null($request['title']) ? $projet->title : $request['title'];
         $projet->slug = is_null($request['title']) ? $projet->slug : Str::slug($request['title']);
@@ -188,7 +178,7 @@ class ProjetController extends Controller
         $projet->ending_date = is_null($request['ending_date']) ? $projet->ending_date : $request['ending_date'];
         $projet->category = is_null($request['category']) ? $projet->category : $request['category'];
 
-        $projet->update();
+        $projet->save();
 
         return response()->json([
             'status' => true,
