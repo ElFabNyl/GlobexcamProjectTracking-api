@@ -157,34 +157,32 @@ class ProjetController extends Controller
      */
     public function update(ProjetUpdateRequest $request, Projet $projet)
     {
+        try {
+            $projet->title = is_null($request['title']) ? $projet->title : $request['title'];
+            $projet->slug = is_null($request['title']) ? $projet->slug : Str::slug($request['title']);
+            $projet->client_email = is_null($request['client_email']) ? $projet->client_email : $request['client_email'];
+            $projet->general_price = is_null($request['general_price']) ? $projet->general_price : $request['general_price'];
+            $projet->description = is_null($request['description']) ? $projet->description : $request['description'];
+            $projet->amount_payed = is_null($request['amount_payed']) ? $projet->amount_payed : $request['amount_payed'];
+            $projet->assign_to = auth()->user()->name;
+            $projet->ending_date = is_null($request['ending_date']) ? $projet->ending_date : $request['ending_date'];
+            $projet->category = is_null($request['category']) ? $projet->category : $request['category'];
 
-        if(!$projet)
-        {
+            $projet->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Projet Updated',
+                'data' => $projet
+            ]);
+        } catch (Exception $exception) {
+
             return response()->json([
                 'status' => false,
                 'message' => 'Projet Not Found',
-                'data' => []
             ]);
-
         }
 
-        $projet->title = is_null($request['title']) ? $projet->title : $request['title'];
-        $projet->slug = is_null($request['title']) ? $projet->slug : Str::slug($request['title']);
-        $projet->client_email = is_null($request['client_email']) ? $projet->client_email : $request['client_email'];
-        $projet->general_price = is_null($request['general_price']) ? $projet->general_price : $request['general_price'];
-        $projet->description = is_null($request['description']) ? $projet->description : $request['description'];
-        $projet->amount_payed = is_null($request['amount_payed']) ? $projet->amount_payed : $request['amount_payed'];
-        $projet->assign_to = auth()->user()->name;
-        $projet->ending_date = is_null($request['ending_date']) ? $projet->ending_date : $request['ending_date'];
-        $projet->category = is_null($request['category']) ? $projet->category : $request['category'];
-
-        $projet->save();
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Projet Updated',
-            'data' => $projet
-        ]);
     }
 
     /**
