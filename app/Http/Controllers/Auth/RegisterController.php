@@ -33,6 +33,7 @@ class RegisterController extends Controller
         if ($validatedData->fails()) {
             $errors = json_decode(json_encode($validatedData->errors()), true);
             return  response()->json([
+                'status' => false,
                 'message' => 'validation error',
                 'error' => $errors
             ],422);
@@ -47,6 +48,7 @@ class RegisterController extends Controller
         $user->save();
 
         return  response()->json([
+            'status' => true,
             'message' => 'Client registered successfully !',
         ],Response::HTTP_OK);
 
