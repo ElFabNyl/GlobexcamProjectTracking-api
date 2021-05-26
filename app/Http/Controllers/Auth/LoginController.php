@@ -31,7 +31,6 @@ class LoginController extends Controller
             $errors = json_decode(json_encode($validatedData->errors()), true);
             return response()->json([
                 'status' => false,
-                'message' => 'validation error',
                 'error' => $errors
             ],422);
         }
@@ -44,12 +43,11 @@ class LoginController extends Controller
         }
 
         $data = [
-            'status' => true,
             'token' => $token,
             'user' => auth()->user()
         ];
 
-        return  response()->json(['message'=> 'user is successfully logged in !', 'data' =>  $data], Response::HTTP_OK);
+        return  response()->json(['message'=> 'user is successfully logged in !','status' => true, 'data' =>  $data], Response::HTTP_OK);
 
      }
 
