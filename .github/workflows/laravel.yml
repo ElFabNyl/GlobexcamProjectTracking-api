@@ -9,10 +9,9 @@ on:
     branches: [ main ]
 
 jobs:
-  laravel-tests:
+  laravel-init:
 
     runs-on: ${{ matrix.operating-system }}
-
     strategy:
       matrix:
         php-version:
@@ -37,35 +36,11 @@ jobs:
     - name: Generate key
       run: php artisan key:generate
 
+    - name: Generate secret key jwt
+      run: php artisan jwt:secret
+
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
 
-    - name: Execution des Tests
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: php artisan test
-
-#   static-code-analysis:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@master
-#         with:
-#           php-version: "${{ matrix.php-version }}"
-
-#       - name: PHPStan
-#         uses: docker://jakzal/phpqa:php7.4-alpine
-#         with:
-#           args: phpstan analyze -l 3 ./app/Http ./app/Models
-
-#      - name: Create file
-#        run: touch .php_cs
-#      - name: PHP-CS-Fixer
-#        uses: docker://jakzal/phpqa:php7.4-alpine
-#        with:
-#          args: php-cs-fixer --dry-run --rules=@PSR2 --verbose --diff fix
-
-#      - name: Deptrac
-#        uses: docker://jakzal/phpqa:php7.4-alpine
-#        with:
-#          args: deptrac --no-interaction --ansi
+    - name: Copy .env
+      run: php -r "file_exists('.env.testing') || copy('.env.example', '.env.testing');"

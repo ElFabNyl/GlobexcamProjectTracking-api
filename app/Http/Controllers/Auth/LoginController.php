@@ -30,13 +30,14 @@ class LoginController extends Controller
         if ($validatedData->fails()) {
             $errors = json_decode(json_encode($validatedData->errors()), true);
             return response()->json([
-                'message' => 'validation error',
+                'status' => false,
                 'error' => $errors
-            ],400);
+            ],422);
         }
         $token = Auth::attempt($request->only('email', 'password'));
         if (!$token) {
             return  response()->json([
+                'status' => false,
                 'message' => 'Invalid credentials !'
             ], Response::HTTP_UNAUTHORIZED);
         }
@@ -46,7 +47,7 @@ class LoginController extends Controller
             'user' => auth()->user()
         ];
 
-        return  response()->json(['message'=> 'user is successfully logged in !', 'data' =>  $data], Response::HTTP_OK);
+        return  response()->json(['message'=> 'user is successfully logged in !','status' => true, 'data' =>  $data], Response::HTTP_OK);
 
      }
 
