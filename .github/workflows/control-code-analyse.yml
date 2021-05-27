@@ -1,0 +1,31 @@
+#name: Analyse Code
+#
+#on:
+#  push:
+#    branches:
+#    pull_request:
+#
+#jobs:
+#   static-code-analysis:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@master
+#         with:
+#           php-version: "${{ matrix.php-version }}"
+
+#       - name: PHPStan
+#         uses: docker://jakzal/phpqa:php7.4-alpine
+#         with:
+#           args: phpstan analyze -l 3 ./app/Http ./app/Models
+
+#      - name: Create file
+#        run: touch .php_cs
+#      - name: PHP-CS-Fixer
+#        uses: docker://jakzal/phpqa:php7.4-alpine
+#        with:
+#          args: php-cs-fixer --dry-run --rules=@PSR2 --verbose --diff fix
+
+#      - name: Deptrac
+#        uses: docker://jakzal/phpqa:php7.4-alpine
+#        with:
+#          args: deptrac --no-interaction --ansi
