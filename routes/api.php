@@ -26,6 +26,7 @@ Route::get('/get-user/{id}', [LoginController::class, 'getUserById']);
 Route::put('/update', [LoginController::class, 'updateUserById']);
 Route::post('/register-payment', [DeptController::class, 'registerPayment']);
 Route::get('/invoices-details', [ReceiptController::class, 'invoicesDetails']);
+Route::get('/logout',[LoginController::class, 'logout'] );
 
 
 
