@@ -25,7 +25,7 @@ class ProjetController extends Controller
      */
     public function __construct()
     {
-        return $this->middleware(['role:admin,manager']);
+        return $this->middleware(['role:admin,manager,customer']);
     }
 
     /**
