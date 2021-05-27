@@ -16,7 +16,7 @@ class LoginTest extends TestCase
         $this->json('POST', 'api/user/login')
             ->assertStatus(422)
             ->assertJson([
-                "message" => "validation error",
+                'status' => false,
                 "error" => [
                     "email" => [
                         "The email field is required."
@@ -34,7 +34,7 @@ class LoginTest extends TestCase
         $this->json('POST', 'api/user/login')
             ->assertStatus(422)
             ->assertJson([
-                "message" => "validation error",
+                'status' => false,
                 "error" => [
                     "email" => [
                         "The email field is required."
@@ -49,7 +49,7 @@ class LoginTest extends TestCase
         $this->json('POST', 'api/user/login')
             ->assertStatus(422)
             ->assertJson([
-                "message" => "validation error",
+                'status' => false,
                 "error" => [
                     "password" => [
                         "The password field is required."
